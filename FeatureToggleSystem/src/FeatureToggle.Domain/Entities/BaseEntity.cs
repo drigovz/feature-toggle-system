@@ -1,14 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
 using FluentValidation;
 using FluentValidation.Results;
+using Newtonsoft.Json;
 
 namespace FeatureToggle.Domain.Entities;
 
 public abstract class BaseEntity
 {
+    [JsonProperty(PropertyName = "id")]
     public int Id { get; protected set; }
     
+    [JsonProperty(PropertyName = "createdAt")]
     private DateTime? _createdAt;
     public DateTime? CreatedAt
     {
@@ -16,14 +18,15 @@ public abstract class BaseEntity
         set => _createdAt = value ?? DateTime.UtcNow;
     }
     
+    [JsonProperty(PropertyName = "updatedAt")]
     public DateTime? UpdatedAt { get; set; }
 
     [NotMapped]
-    [JsonIgnore]
+    [System.Text.Json.Serialization.JsonIgnore]
     public bool Valid { get; protected set; }
 
     [NotMapped]
-    [JsonIgnore]
+    [System.Text.Json.Serialization.JsonIgnore]
     public ValidationResult ValidationResult { get; protected set; }
 
     protected bool EntityValidation<T>(T model, AbstractValidator<T> validator)

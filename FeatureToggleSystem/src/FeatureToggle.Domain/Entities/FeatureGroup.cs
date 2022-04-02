@@ -1,10 +1,14 @@
 ﻿using FeatureToggle.Domain.Validations;
+using Newtonsoft.Json;
 
 namespace FeatureToggle.Domain.Entities;
 
 public class FeatureGroup : BaseEntity
 {
+    [JsonProperty(PropertyName = "name")]
     public string Name { get; private set; }
+    
+    [JsonProperty(PropertyName = "description")]
     public string Description { get; private set; }
     
     public FeatureGroup(int id, string name, string description)

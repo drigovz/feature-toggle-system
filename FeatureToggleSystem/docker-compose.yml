@@ -1,21 +1,6 @@
 version: "3.7"
 
 services:
-  mssql-server:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    container_name: mssql-server
-    user: root
-    volumes:
-       - C:\containers\mssql:/var/opt/mssql/data
-    ports: 
-      - "1433:1433"
-    environment:
-      ACCEPT_EULA: "Y"
-      SA_PASSWORD: ${SQL_PASSWORD}
-      MSSQL_PID: ${SQL_PID}
-    networks:
-      - dev-network
-  
   seq:
     image: datalust/seq:latest
     container_name: seq
