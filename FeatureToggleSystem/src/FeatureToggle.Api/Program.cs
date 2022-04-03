@@ -1,4 +1,6 @@
+using FeatureToggle.Application.Notifications;
 using FeatureToggle.Infra.IoC.DependencyInjection;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,8 +9,12 @@ builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
     .AddEnvironmentVariables();
 
+builder.Services.AddServices();
 builder.Services.AddRepositories(builder.Configuration);
-builder.Services.AddControllers();
+builder.Services.AddScoped<NotificationContext>();
+builder.Services.AddControllers()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<NotificationContext>());
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

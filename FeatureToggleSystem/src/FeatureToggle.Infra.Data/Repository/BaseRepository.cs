@@ -1,66 +1,100 @@
 ﻿using FeatureToggle.Domain.Entities;
 using FeatureToggle.Domain.Interfaces.Repository;
-using Microsoft.Azure.Cosmos;
-using Newtonsoft.Json;
+using FeatureToggle.Infra.Data.Context;
+using FluentValidation.Results;
+using Microsoft.EntityFrameworkCore;
 
-namespace FeatureToggle.Infra.Data.Repository;
-
-public class BaseRepository<E, T> : IBaseRepository<E, int> where E : BaseEntity
+namespace FeatureToggle.Infra.Data.Repository
 {
-    private Container _container;
-    private static readonly JsonSerializer _serializer = new();
-
-    public BaseRepository(CosmosClient dbClient, string databaseName, string containerName)
+    public class BaseRepository<E, T> : IBaseRepository<E, int> where E : BaseEntity
     {
-        _container = dbClient.GetContainer(databaseName, containerName);
-    }
+        private readonly AppDbContext _context;
 
-    public async Task<IEnumerable<E>> GetAsync()
-    {
-        string query = $"select * from {typeof(E)}";
-        var queryResult = _container.GetItemQueryIterator<E>(new QueryDefinition(query));
-        var results = new List<E>();
-        while (queryResult.HasMoreResults)
+        public BaseRepository(AppDbContext context)
         {
-            var response = await queryResult.ReadNextAsync();
-            results.AddRange(response.ToList());
-        }
-        
-        return results;
-    }
-
-    public async Task<E> GetByIdAsync(int id)
-    {
-        return await _container.DeleteItemAsync<E>($"{id}", new PartitionKey($"{id}"));
-    }
-
-    public async Task<E> AddAsync(E entity)
-    {
-        return await _container.CreateItemAsync<E>(entity, new PartitionKey(entity.Id));
-    }
-
-    public async Task<E> UpdateAsync(E entity)
-    {
-        var result = await GetByIdAsync(entity.Id);
-        if (result!=null)
-        {
-            return await _container.ReplaceItemAsync<E>(result, $"{entity.Id}", new PartitionKey($"{result.Id}"));
+            _context = context;
         }
 
-        return null;
-    }
+        protected internal async Task Commit() =>
+            await _context.SaveChangesAsync();
 
-    public async Task<bool> RemoveAsync(int id)
-    {
-        var entity = await GetByIdAsync(id);
-        if (entity != null)
+        public async Task<IEnumerable<E>> GetAsync() =>
+            await _context.Set<E>().ToListAsync();
+
+        public async Task<E?> GetByIdAsync(int id)
         {
-            await _container.DeleteItemAsync<E>($"{id}", new PartitionKey($"{id}"));
+            try
+            {
+                var entity = await _context.Set<E>().SingleOrDefaultAsync(x => x.Id.Equals(id));
+                if (entity != null)
+                    return entity;
+                else
+                    return null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public async Task<E?> AddAsync(E entity)
+        {
+            try
+            {
+                entity.CreatedAt = DateTime.UtcNow;
+
+                _context.Set<E>().Add(entity);
+            }
+            catch (Exception ex)
+            {
+                entity.Valid = false;
+                entity.ValidationResult.Errors.Add(new ValidationFailure(ex.Source, ex.Message));
+                return null;
+            }
+             
+            await Commit();
+            return entity;
+        }
+
+        public async Task<E?> UpdateAsync(E entity)
+        {
+            try
+            {
+                var result = await GetByIdAsync(entity.Id);
+                if (result == null)
+                    return null;
+
+                entity.UpdatedAt = DateTime.UtcNow;
+                entity.CreatedAt = result.CreatedAt;
+
+                _context.Entry(result).CurrentValues.SetValues(entity);
+            }
+            catch
+            {
+                return null;
+            }
+
+            await Commit();
+            return entity;
+        }
+
+        public async Task<bool> RemoveAsync(int id)
+        {
+            try
+            {
+                var result = await GetByIdAsync(id);
+                if (result == null)
+                    return false;
+
+                _context.Set<E>().Remove(result);
+            }
+            catch
+            {
+                return false;
+            }
+
+            await Commit();
             return true;
         }
-        else
-            return false;
-        
-        return true;
     }
 }

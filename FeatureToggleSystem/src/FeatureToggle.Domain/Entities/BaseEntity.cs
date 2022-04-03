@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using FluentValidation;
 using FluentValidation.Results;
 using Newtonsoft.Json;
@@ -7,6 +8,7 @@ namespace FeatureToggle.Domain.Entities;
 
 public abstract class BaseEntity
 {
+    [Key]
     [JsonProperty(PropertyName = "id")]
     public int Id { get; protected set; }
     
@@ -23,11 +25,11 @@ public abstract class BaseEntity
 
     [NotMapped]
     [System.Text.Json.Serialization.JsonIgnore]
-    public bool Valid { get; protected set; }
+    public bool Valid { get; set; }
 
     [NotMapped]
     [System.Text.Json.Serialization.JsonIgnore]
-    public ValidationResult ValidationResult { get; protected set; }
+    public FluentValidation.Results.ValidationResult ValidationResult { get; protected set; }
 
     protected bool EntityValidation<T>(T model, AbstractValidator<T> validator)
     {
