@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{48659AD0-F873-4DE4-8E94-809738C6AE34}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{19BB8AED-3D0B-4468-9977-E3F3EF01AE2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureToggleSystem.Domain", "src\FeatureToggleSystem.Domain\FeatureToggleSystem.Domain.csproj", "{8092FA33-9CBF-49CD-8402-33A8C9021EE7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureToggleSystem.Application", "src\FeatureToggleSystem.Application\FeatureToggleSystem.Application.csproj", "{7266E55D-80DA-42EB-AC5B-0A0719BA1858}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureToggleSystem.Infra.Data", "src\FeatureToggleSystem.Infra.Data\FeatureToggleSystem.Infra.Data.csproj", "{07ED69FE-39FC-4CDC-8542-4952B02EDF2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureToggleSystem.Infra.IoC", "src\FeatureToggleSystem.Infra.IoC\FeatureToggleSystem.Infra.IoC.csproj", "{A105FBE1-2EBA-4017-AEFD-6B30E705C2FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureToggleSystem.Api", "src\FeatureToggleSystem.Api\FeatureToggleSystem.Api.csproj", "{916CD1F8-BC75-49DB-9EF0-8B6B43E86AE1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8092FA33-9CBF-49CD-8402-33A8C9021EE7} = {48659AD0-F873-4DE4-8E94-809738C6AE34}
+		{7266E55D-80DA-42EB-AC5B-0A0719BA1858} = {48659AD0-F873-4DE4-8E94-809738C6AE34}
+		{07ED69FE-39FC-4CDC-8542-4952B02EDF2C} = {48659AD0-F873-4DE4-8E94-809738C6AE34}
+		{A105FBE1-2EBA-4017-AEFD-6B30E705C2FC} = {48659AD0-F873-4DE4-8E94-809738C6AE34}
+		{916CD1F8-BC75-49DB-9EF0-8B6B43E86AE1} = {48659AD0-F873-4DE4-8E94-809738C6AE34}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8092FA33-9CBF-49CD-8402-33A8C9021EE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8092FA33-9CBF-49CD-8402-33A8C9021EE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8092FA33-9CBF-49CD-8402-33A8C9021EE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8092FA33-9CBF-49CD-8402-33A8C9021EE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7266E55D-80DA-42EB-AC5B-0A0719BA1858}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7266E55D-80DA-42EB-AC5B-0A0719BA1858}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7266E55D-80DA-42EB-AC5B-0A0719BA1858}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7266E55D-80DA-42EB-AC5B-0A0719BA1858}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07ED69FE-39FC-4CDC-8542-4952B02EDF2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07ED69FE-39FC-4CDC-8542-4952B02EDF2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07ED69FE-39FC-4CDC-8542-4952B02EDF2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07ED69FE-39FC-4CDC-8542-4952B02EDF2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A105FBE1-2EBA-4017-AEFD-6B30E705C2FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A105FBE1-2EBA-4017-AEFD-6B30E705C2FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A105FBE1-2EBA-4017-AEFD-6B30E705C2FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A105FBE1-2EBA-4017-AEFD-6B30E705C2FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{916CD1F8-BC75-49DB-9EF0-8B6B43E86AE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{916CD1F8-BC75-49DB-9EF0-8B6B43E86AE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{916CD1F8-BC75-49DB-9EF0-8B6B43E86AE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{916CD1F8-BC75-49DB-9EF0-8B6B43E86AE1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
