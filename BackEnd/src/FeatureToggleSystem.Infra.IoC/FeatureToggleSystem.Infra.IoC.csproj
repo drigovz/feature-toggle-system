@@ -6,4 +6,10 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\FeatureToggleSystem.Application\FeatureToggleSystem.Application.csproj" />
+      <ProjectReference Include="..\FeatureToggleSystem.Domain\FeatureToggleSystem.Domain.csproj" />
+      <ProjectReference Include="..\FeatureToggleSystem.Infra.Data\FeatureToggleSystem.Infra.Data.csproj" />
+    </ItemGroup>
+
 </Project>
