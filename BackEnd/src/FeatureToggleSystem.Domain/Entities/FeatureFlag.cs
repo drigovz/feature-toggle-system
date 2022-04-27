@@ -1,5 +1,9 @@
-﻿namespace FeatureToggleSystem.Domain.Entities
+﻿using FeatureToggleSystem.Domain.Helpers;
+using FeatureToggleSystem.Domain.Validations;
+
+namespace FeatureToggleSystem.Domain.Entities
 {
+    [BsonCollection("FeatureFlag")]
     public sealed class FeatureFlag : BaseEntity
     {
         public string Name { get; private set; }
@@ -11,6 +15,8 @@
             Name = name;
             Description = description;
             Active = active;
+
+            EntityValidation(this, new FeatureFlagValidation());
         }
 
         public FeatureFlag Update(string name, string description, bool active)
@@ -19,6 +25,7 @@
             Description = description;
             Active = active;
 
+            EntityValidation(this, new FeatureFlagValidation());
             return this;
         }
     }
